@@ -23,7 +23,7 @@ CREATE TABLE Filme(
     SINOPSE varchar(255) NOT NULL,
     DIRETOR varchar(255) NOT NULL,
     IDIOMA varchar(255) NOT NULL,
-    NOTA_AGREGADA NUMERIC(3,1) DEFAULT 0.0 CHECK (NOTA_AGREGADA>=0 AND NOTA_AGREGADA <=10) 
+    NOTA_AGREGADA numeric(3,1) DEFAULT 0.0 CHECK (NOTA_AGREGADA>=0 AND NOTA_AGREGADA <=10) 
 );
 
 CREATE TABLE Tags(
@@ -32,18 +32,22 @@ CREATE TABLE Tags(
     PRIMARY KEY(ID_FILME, TAG)
 );
 
-CREATE TABLE Avaliação(
+CREATE TABLE Avaliacao(
     ID_FILME integer REFERENCES Filme(ID_FILME),
     USERNAME varchar(255) REFERENCES U_Publico(USERNAME),
-    NOTA NUMERIC(3,1) NOT NULL CHECK (NOTA>=0 AND NOTA<=10), 
+    NOTA numeric(3,1) NOT NULL CHECK (NOTA>=0 AND NOTA<=10),
+    DESCRICAO varchar(4096) DEFAULT '',
+    DATA_REVIEW date DEFAULT CURRENT_DATE ON UPDATE CURRENT_DATE, -- Nao deve necessitar trigger
     PRIMARY KEY(ID_FILME, USERNAME)
 );
 
+-- TODO: Trigger pra data atual quando dá insert na Avaliação?
+
 CREATE TRIGGER update_nota_agregada
-AFTER INSERT ON Avaliação
+AFTER UPDATE OR INSERT OR DELETE ON Avaliação
 FOR EACH ROW
 BEGIN
-    DECLARE avg_rating NUMERIC(3,1);
+    DECLARE avg_rating numeric(3,1);
 
     -- Calculate the average rating for the movie
     SELECT AVG(NOTA) INTO avg_rating
