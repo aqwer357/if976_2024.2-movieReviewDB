@@ -39,6 +39,23 @@ CREATE TABLE Avaliação(
     PRIMARY KEY(ID_FILME, USERNAME)
 );
 
+CREATE TRIGGER update_nota_agregada
+AFTER INSERT ON Avaliação
+FOR EACH ROW
+BEGIN
+    DECLARE avg_rating NUMERIC(3,1);
+
+    -- Calculate the average rating for the movie
+    SELECT AVG(NOTA) INTO avg_rating
+    FROM Avaliação
+    WHERE ID_FILME = NEW.ID_FILME;
+
+    -- Update the nota_agregada column in the Filme table
+    UPDATE Filme
+    SET NOTA_AGREGADA = avg_rating
+    WHERE ID_FILME = NEW.ID_FILME;
+END;
+
 CREATE TABLE Membro( 
     NOME varchar(255) PRIMARY KEY,
     PAIS varchar(255) NOT NULL,
