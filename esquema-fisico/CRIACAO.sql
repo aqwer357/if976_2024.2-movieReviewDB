@@ -41,17 +41,17 @@ CREATE TABLE Avaliacao(
     PRIMARY KEY(ID_FILME, USERNAME)
 );
 
--- TODO: Trigger pra data atual quando dá insert na Avaliação?
+-- TODO: Trigger pra data atual quando dá insert na Avaliacao?
 
 CREATE TRIGGER update_nota_agregada
-AFTER UPDATE OR INSERT OR DELETE ON Avaliação
+AFTER UPDATE OR INSERT OR DELETE ON Avaliacao
 FOR EACH ROW
 BEGIN
     DECLARE avg_rating numeric(3,1);
 
     -- Calculate the average rating for the movie
     SELECT AVG(NOTA) INTO avg_rating
-    FROM Avaliação
+    FROM Avaliacao
     WHERE ID_FILME = NEW.ID_FILME;
 
     -- Update the nota_agregada column in the Filme table
