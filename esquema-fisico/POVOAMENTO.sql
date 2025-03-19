@@ -930,7 +930,7 @@ INSERT INTO Participou (ID_FILME, NOME, CARGO) VALUES
 (20, 'Bruce Willis', 'Ator'),
 (20, 'M. Night Shyamalan', 'Diretor');
 
-NSERT INTO Assistiu (ID_FILME, USERNAME) VALUES
+INSERT INTO Assistiu (ID_FILME, USERNAME) VALUES
 (1, 'joaoferreira'),
 (1, 'mariasilva'),
 (2, 'pedrogomes'),
