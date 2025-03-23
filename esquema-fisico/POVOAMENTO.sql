@@ -651,7 +651,7 @@ INSERT INTO Assistira (ID_FILME, USERNAME) VALUES
 (3, 'leoncio'),
 (32, 'leoncio'),
 (33, 'leoncio'),
-(34, 'leoncio')
+(34, 'leoncio'),
 (2, 'leoncio'),
 (35, 'gustavocorreia');
 
