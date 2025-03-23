@@ -37,28 +37,31 @@ CREATE TABLE Avaliacao(
     USERNAME varchar(255) REFERENCES U_Publico(USERNAME),
     NOTA numeric(3,1) NOT NULL CHECK (NOTA>=0 AND NOTA<=10),
     DESCRICAO varchar(4096) DEFAULT '',
-    DATA_REVIEW date DEFAULT CURRENT_DATE ON UPDATE CURRENT_DATE, -- Nao deve necessitar trigger
+    DATA_REVIEW date DEFAULT CURRENT_DATE,
     PRIMARY KEY(ID_FILME, USERNAME)
 );
 
 -- TODO: Trigger pra data atual quando dá insert na Avaliacao?
 
-CREATE TRIGGER update_nota_agregada
-AFTER UPDATE OR INSERT OR DELETE ON Avaliacao
-FOR EACH ROW
+CREATE OR REPLACE FUNCTION update_avg() RETURNS TRIGGER AS $update_nota_agregada$
+DECLARE avg_rating numeric(3,1);
 BEGIN
-    DECLARE avg_rating numeric(3,1);
 
     -- Calculate the average rating for the movie
-    SELECT AVG(NOTA) INTO avg_rating
-    FROM Avaliacao
-    WHERE ID_FILME = NEW.ID_FILME;
+    avg_rating := (SELECT ROUND(AVG(NOTA), 1) FROM Avaliacao WHERE ID_FILME = NEW.ID_FILME);
 
     -- Update the nota_agregada column in the Filme table
     UPDATE Filme
     SET NOTA_AGREGADA = avg_rating
     WHERE ID_FILME = NEW.ID_FILME;
 END;
+$update_nota_agregada$
+language plpgsql;
+
+CREATE TRIGGER update_nota_agregada
+AFTER UPDATE OR INSERT OR DELETE ON Avaliacao
+FOR EACH ROW
+EXECUTE FUNCTION update_avg();
 
 CREATE TABLE Membro( 
     NOME varchar(255) PRIMARY KEY,
@@ -79,7 +82,7 @@ CREATE TABLE Solicitacao_Filme(
 );
 
 CREATE TABLE Tags_Solicitacao(
-    ID_SOLICITACAO integer references Solicitacao_Filme (ID_SOLICITACAO)
+    ID_SOLICITACAO integer references Solicitacao_Filme (ID_SOLICITACAO),
     TAG varchar(255) NOT NULL,
     PRIMARY KEY(ID_SOLICITACAO, TAG)
 );
