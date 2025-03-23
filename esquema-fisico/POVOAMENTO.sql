@@ -638,6 +638,7 @@ INSERT INTO Assistira (ID_FILME, USERNAME) VALUES
 (22, 'samiracardoso'),
 (23, 'fabriciomonteiro'),
 (24, 'sabrinasantos'),
+(24, 'ricardocavalcante'),
 (25, 'marcelorodrigues'),
 (26, 'biancaramos'),
 (27, 'fernandovieira'),
@@ -647,7 +648,11 @@ INSERT INTO Assistira (ID_FILME, USERNAME) VALUES
 (31, 'evandropaixao'),
 (32, 'renataandrade'),
 (33, 'caiocampos'),
-(34, 'larissamartins'),
+(3, 'leoncio'),
+(32, 'leoncio'),
+(33, 'leoncio'),
+(34, 'leoncio')
+(2, 'leoncio'),
 (35, 'gustavocorreia');
 
 INSERT INTO Participou (ID_FILME, NOME, CARGO) VALUES
