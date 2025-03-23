@@ -779,3 +779,12 @@ INSERT INTO Favoritou (ID_FILME, USERNAME) VALUES
 (8, 'henriquecosta'),
 (9, 'henriquecosta'),
 (10, 'henriquecosta');
+
+/*
+Para demo do trigger:
+
+SELECT ID_FILME, NOME, NOTA_AGREGADA FROM Filme ORDER BY NOTA_AGREGADA DESC;
+
+INSERT INTO Avaliacao VALUES (16, 'antonioribeiro', 2.0, 'Cocô')
+
+*/
