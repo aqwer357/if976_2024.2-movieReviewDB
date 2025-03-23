@@ -9,6 +9,7 @@ SELECT f.NOME FROM Filme f INNER JOIN Assistira a ON a.ID_FILME = f.ID_FILME WHE
     -- Listar todos os filmes de 1 gênero
 SELECT f.NOME FROM Filme f WHERE f.GENERO = 'Terror';
 
+
 -- Consultas relacionadas a avaliações:
 
     -- Listar todas as avaliações feitas por 1 usuário
@@ -27,9 +28,10 @@ SELECT s.ID_SOLICITACAO, s.NOME FROM Solicitacao_Filme s RIGHT OUTER JOIN Aprova
 
 -- Filmes mais assistidos por período:
 -- Gêneros mais populares entre os usuários:
--- Filmes com melhor avaliação média:
+    -- Filmes com melhor avaliação média:
+SELECT NOME, NOTA_AGREGADA FROM Filme ORDER BY NOTA_AGREGADA DESC;
 -- Filmes com pior avaliação média:
--- Tags mais utilizadas em filmes:
+    -- Tags mais utilizadas em filmes:
 SELECT TAG, COUNT(TAG) FROM Tags GROUP BY TAG ORDER BY COUNT(TAG) DESC;
 -- Atores mais presentes em filmes assistidos:
 -- Usuários mais ativos (avaliações, favoritos, assistidos):
