@@ -54,6 +54,8 @@ BEGIN
     UPDATE Filme
     SET NOTA_AGREGADA = avg_rating
     WHERE ID_FILME = NEW.ID_FILME;
+
+    RETURN NULL;
 END;
 $update_nota_agregada$
 language plpgsql;
@@ -85,18 +87,6 @@ CREATE TABLE Tags_Solicitacao(
     ID_SOLICITACAO integer references Solicitacao_Filme (ID_SOLICITACAO),
     TAG varchar(255) NOT NULL,
     PRIMARY KEY(ID_SOLICITACAO, TAG)
-);
-
-CREATE TABLE Escreve(
-    ID_FILME integer REFERENCES Filme(ID_FILME),
-    USERNAME varchar(255) REFERENCES U_Publico(USERNAME),
-    PRIMARY KEY(ID_FILME, USERNAME)
-);
-
-CREATE TABLE Classificado(
-    ID_FILME integer REFERENCES Filme(ID_FILME),
-    USERNAME varchar(255) REFERENCES U_Publico(USERNAME),
-    PRIMARY KEY(ID_FILME, USERNAME)
 );
 
 CREATE TABLE Solicita(
